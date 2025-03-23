@@ -14,4 +14,8 @@ map('n', '<leader>gu', '<cmd>diffget //2<CR>')
 
 map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
 
-map('n','<leader>q','<cmd>bp<bar>sp<bar>bn<bar>bd<CR>')
+map('n','<leader>q','<cmd>bp|bd#<CR>')
+
+map('n', '<leader>ie','<cmd>GoIfErr<CR>')
+
+map('t', '<Esc>', '<C-\\><C-n>')
