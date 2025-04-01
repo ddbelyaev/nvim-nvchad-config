@@ -11,9 +11,24 @@ lspconfig.gopls.setup {
   filetypes = { "go", "gomod", "gowork", "gotmpl"},
   root_dir = util.root_pattern("go.work", "go.mod", ".git"),
   settings = {
+    gopls = {
+      usePlaceholders = true, -- Add placeholders for function parameters
+      analyses = {
+        unusedparams = true, -- Warn about unused parameters
+        nilness = true, -- Detect nil issues
+        shadow = true, -- Detect variable shadowing
+        fillstruct = true,
+      },
+      staticcheck = true,
+    },
     gofumpt = true,
     linksInHover = false,
     templateExtensions = { "gohtml", "html" },
+    codelenses = {
+      generate = true, -- Enable `go generate` lens
+      test = true, -- Enable test running lens
+      gc_details = true, -- Show GC details
+    },
   },
 }
 

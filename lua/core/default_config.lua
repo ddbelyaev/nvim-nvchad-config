@@ -42,14 +42,14 @@ M.ui = {
   tabufline = {
     show_numbers = false,
     -- Disabled tabufline
-    enabled = false,
+    enabled = true,
     lazyload = true,
     overriden_modules = nil,
   },
 
   -- nvdash (dashboard)
   nvdash = {
-    load_on_startup = false,
+    load_on_startup = true,
 
     header = {
       "           ▄ ▄                   ",

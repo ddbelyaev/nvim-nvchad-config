@@ -55,6 +55,10 @@ M.gopher = {
       "<cmd>GoTestAdd<CR>",
       "Add test",
     },
+    ["<leader>ie"] = {
+      "<cmd>GoIfErr<CR>",
+      "Add error"
+    }
   }
 }
 
