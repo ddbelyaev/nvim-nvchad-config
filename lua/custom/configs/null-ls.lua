@@ -6,6 +6,11 @@ local opts = {
     null_ls.builtins.formatting.gofmt,
     null_ls.builtins.formatting.goimports,
     null_ls.builtins.formatting.golines,
+    null_ls.builtins.formatting.prettier.with({
+      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    }),
+    --null_ls.builtins.diagnostics.eslint,
+    require("none-ls.diagnostics.eslint"),
   },
   on_attach = function (client, bufnr)
     if client.supports_method("textDocument/formatting") then

@@ -7,6 +7,114 @@ local cmp_style = cmp_ui.style
 
 local luasnip = require("luasnip")
 
+-- Function to check if the cursor is inside an HTML tag
+local function is_inside_html_tag()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
+
+  -- Check if cursor is inside a tag by matching '<...>' pattern
+  return line:sub(col, col):match("<") and line:sub(col, col):match(">")
+end
+
+local alpinejs_snippets = {
+  -- x-data snippet
+  luasnip.s("x-data", {
+    luasnip.text_node('x-data="{ '),
+    luasnip.insert_node(1, "key: 'value'"),
+    luasnip.text_node(' }"'),
+  }, {
+      condition = is_inside_html_tag
+  }),
+
+  -- x-bind snippet
+  luasnip.s("x-bind", {
+    luasnip.text_node('x-bind:'),
+    luasnip.insert_node(1, "attribute"),
+    luasnip.text_node('="'),
+    luasnip.insert_node(2, "value"),
+    luasnip.text_node('"'),
+  }),
+
+  -- x-on snippet
+  luasnip.s("x-on", {
+    luasnip.text_node('x-on:'),
+    luasnip.insert_node(1, "event"),
+    luasnip.text_node('="'),
+    luasnip.insert_node(2, "handler"),
+    luasnip.text_node('"'),
+  }),
+
+  -- x-model snippet
+  luasnip.s("x-model", {
+    luasnip.text_node('x-model="'),
+    luasnip.insert_node(1, "variable"),
+    luasnip.text_node('"'),
+  }),
+
+  -- x-show snippet
+  luasnip.s("x-show", {
+    luasnip.text_node('x-show="'),
+    luasnip.insert_node(1, "condition"),
+    luasnip.text_node('"'),
+  }),
+
+  -- x-if snippet
+  luasnip.s("x-if", {
+    luasnip.text_node('<template x-if="'),
+    luasnip.insert_node(1, "condition"),
+    luasnip.text_node('">'),
+    luasnip.text_node('<div>'),
+    luasnip.insert_node(2, "content"),
+    luasnip.text_node('</div></template>'),
+  }),
+
+  -- x-for snippet
+  luasnip.s("x-for", {
+    luasnip.text_node('x-for="'),
+    luasnip.insert_node(1, "item"),
+    luasnip.text_node(' in '),
+    luasnip.insert_node(2, "items"),
+    luasnip.text_node('"'),
+  }),
+
+  -- x-transition snippet
+  luasnip.s("x-transition", {
+    luasnip.text_node('x-transition.'),
+    luasnip.insert_node(1, "type"), -- e.g., "enter", "leave"
+  }),
+
+  -- x-cloak snippet
+  luasnip.s("x-cloak", {
+    luasnip.text_node('x-cloak'),
+  }),
+
+  -- x-ref snippet
+  luasnip.s("x-ref", {
+    luasnip.text_node('x-ref="'),
+    luasnip.insert_node(1, "reference"),
+    luasnip.text_node('"'),
+  }),
+
+  -- x-effect snippet
+  luasnip.s("x-effect", {
+    luasnip.text_node('x-effect="'),
+    luasnip.insert_node(1, "expression"),
+    luasnip.text_node('"'),
+  }),
+
+  -- x-init snippet
+  luasnip.s("x-init", {
+    luasnip.text_node('x-init="'),
+    luasnip.insert_node(1, "expression"),
+    luasnip.text_node('"'),
+  }),
+}
+
+-- Alpine.js snippets
+luasnip.add_snippets("templ", alpinejs_snippets)
+luasnip.add_snippets("html", alpinejs_snippets)
+
+
 local field_arrangement = {
   atom = { "kind", "abbr", "menu" },
   atom_colored = { "kind", "abbr", "menu" },

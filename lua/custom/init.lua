@@ -22,3 +22,4 @@ map('t', '<C-/>', '<C-\\><C-n>')
 
 map("n", "<leader>ca", '<cmd>lua vim.lsp.buf.code_action, { noremap = true, silent = true }<CR>')
 
+vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint'})

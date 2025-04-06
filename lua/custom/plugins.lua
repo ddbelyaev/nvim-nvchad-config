@@ -42,20 +42,56 @@ local plugins = {
         -- "als",
         "pyright",
         "rust-analyzer",
+        "typescript-language-server",
+        "eslint-lsp",
+        "eslint_d",
+        "prettier",
       },
     },
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    ft = "go",
+    "nvimtools/none-ls.nvim",
+    ft = {"go", "javascript", "typescript"},
     opts = function ()
       return require "custom.configs.null-ls"
     end,
+    dependencies = {
+      "nvimtools/none-ls-extras.nvim",
+    },
   },
   {
     "mfussenegger/nvim-dap",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+      "theHamsta/nvim-dap-virtual-text",
+    },
     init = function ()
+      require "custom.configs.dap"
       require("core.utils").load_mappings("dap")
+    end
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+      "theHamsta/nvim-dap-virtual-text",
+    },
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+      require("dapui").setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
     end
   },
   {
@@ -65,6 +101,13 @@ local plugins = {
     config = function (_, opts)
       require("dap-go").setup(opts)
       require("core.utils").load_mappings("dap_go")
+    end
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    dependencies = {"mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter"},
+    config = function ()
+      require("nvim-dap-virtual-text").setup()
     end
   },
   {

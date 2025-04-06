@@ -23,7 +23,7 @@ lspconfig.gopls.setup {
     },
     gofumpt = true,
     linksInHover = false,
-    templateExtensions = { "gohtml", "html" },
+    templateExtensions = { "gohtml", "html", "templ" },
     codelenses = {
       generate = true, -- Enable `go generate` lens
       test = true, -- Enable test running lens
@@ -46,6 +46,124 @@ lspconfig.elixirls.setup {
   root_dir = lspconfig.util.root_pattern("mix.exs", ".git") or vim.loop.os_homedir(),
   cmd = { "~/.local/share/nvim/mason/bin/elixir-ls" },
 }
+
+vim.filetype.add({ extension = { templ = "templ" } })
+local custom_format = function()
+    if vim.bo.filetype == "templ" then
+        local bufnr = vim.api.nvim_get_current_buf()
+        local filename = vim.api.nvim_buf_get_name(bufnr)
+        local cmd = "templ fmt " .. vim.fn.shellescape(filename)
+
+        vim.fn.jobstart(cmd, {
+            on_exit = function()
+                -- Reload the buffer only if it's still the current buffer
+                if vim.api.nvim_get_current_buf() == bufnr then
+                    vim.cmd('e!')
+                end
+            end,
+        })
+    else
+        vim.lsp.buf.format()
+    end
+end
+vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = vim.lsp.buf.format })
+vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = { "*.templ" }, callback = custom_format })
+
+lspconfig.templ.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "html", "templ" },
+})
+
+lspconfig.html.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "html", "templ" },
+})
+
+lspconfig.htmx.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "html", "templ" },
+})
+
+lspconfig.tailwindcss.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+    settings = {
+      tailwindCSS = {
+        includeLanguages = {
+          templ = "html",
+        },
+      },
+    },
+})
+
+lspconfig.ts_ls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  init_options = {
+    plugins = {
+      {
+        name = "@vue/typescript-plugin",
+        location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+        languages = {"javascript", "typescript", "vue"},
+      },
+    },
+  },
+  filetypes = {
+    "javascript",
+    "typescript",
+    "vue",
+  },
+})
+
+lspconfig.volar.setup {}
+
+lspconfig.eslint.setup({})
+
+-- lspconfig.volar.setup {
+--   -- add filetypes for typescript, javascript and vue
+--   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+--   init_options = {
+--     vue = {
+--       -- disable hybrid mode
+--       hybridMode = false,
+--     },
+--     typescript = {
+--       tsdk = vim.fn.expand(
+--           "~/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib"
+--       ),
+--     }
+--   },
+-- }
+
+-- lspconfig.emmet_language_server.setup({
+--   filetypes = { "css", "html", "javascript", "less", "sass", "scss", "pug", "typescriptreact", "gohtml", "templ" },
+--   -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
+--   -- **Note:** only the options listed in the table are supported.
+--   init_options = {
+--     ---@type table<string, string>
+--     includeLanguages = {},
+--     --- @type string[]
+--     excludeLanguages = {},
+--     --- @type string[]
+--     extensionsPath = {},
+--     --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
+--     preferences = {},
+--     --- @type boolean Defaults to `true`
+--     showAbbreviationSuggestions = true,
+--     --- @type "always" | "never" Defaults to `"always"`
+--     showExpandedAbbreviation = "always",
+--     --- @type boolean Defaults to `false`
+--     showSuggestionsAsSnippets = false,
+--     --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
+--     syntaxProfiles = {},
+--     --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
+--     variables = {},
+--   },
+-- })
 
 -- local configs = require("lspconfig.configs")
 -- 
