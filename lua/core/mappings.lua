@@ -179,6 +179,18 @@ M.lspconfig = {
       "LSP rename",
     },
 
+    ["<leader>fs"] = {
+      function()
+        vim.lsp.buf.code_action({
+          apply = true, -- Apply the action automatically if there's only one
+          context = {
+            diagnostics = {},
+            only = {"refactor.rewrite"},
+          },
+        })
+      end,
+      "LSP code action",
+    },
     ["<leader>ca"] = {
       function()
         vim.lsp.buf.code_action()

@@ -7,7 +7,7 @@ local opts = {
     null_ls.builtins.formatting.goimports,
     null_ls.builtins.formatting.golines,
     null_ls.builtins.formatting.prettier.with({
-      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "html", "json", "css", "sass"},
     }),
     --null_ls.builtins.diagnostics.eslint,
     require("none-ls.diagnostics.eslint"),

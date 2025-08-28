@@ -51,7 +51,7 @@ local plugins = {
   },
   {
     "nvimtools/none-ls.nvim",
-    ft = {"go", "javascript", "typescript"},
+    ft = {"go", "javascript", "typescript", "html", "css", "json", },
     opts = function ()
       return require "custom.configs.null-ls"
     end,
@@ -124,6 +124,16 @@ local plugins = {
   {
     "tpope/vim-fugitive",
     lazy = false
+  },
+  {
+      "kylechui/nvim-surround",
+      version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
+      event = "VeryLazy",
+      config = function()
+          require("nvim-surround").setup({
+              -- Configuration here, or leave empty to use defaults
+          })
+      end
   },
 }
 return plugins

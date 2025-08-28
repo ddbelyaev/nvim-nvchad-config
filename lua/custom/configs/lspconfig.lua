@@ -41,6 +41,12 @@ lspconfig.pyright.setup {
   filetypes = {"python"},
 }
 
+lspconfig.cssls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {"css", "sass", "html", "gohtml", "templ"},
+}
+
 lspconfig.elixirls.setup {
   filetypes = { "elixir", "eelixir", "heex", "surface" },
   root_dir = lspconfig.util.root_pattern("mix.exs", ".git") or vim.loop.os_homedir(),
@@ -90,7 +96,7 @@ lspconfig.htmx.setup({
 lspconfig.tailwindcss.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+    filetypes = { "html", "templ", "astro", "javascript", "typescript", "react" },
     settings = {
       tailwindCSS = {
         includeLanguages = {
@@ -122,6 +128,22 @@ lspconfig.ts_ls.setup({
 lspconfig.volar.setup {}
 
 lspconfig.eslint.setup({})
+
+lspconfig.terraformls.setup({
+  on_attach=on_attach,
+  capabilities = capabilities,
+  cmd = { "terraform-ls", "serve" },
+  filetypes = { "terraform", "tf", "terraform-vars" },
+  root_dir = lspconfig.util.root_pattern(".terraform", ".git", "*.tf"),
+  settings = {},
+})
+
+lspconfig.protols.setup {
+  on_attach=on_attach,
+  capabilities = capabilities,
+  filetypes = { "proto" },
+  root_dir = lspconfig.util.root_pattern(".terraform", ".git", "*.tf"),
+}
 
 -- lspconfig.volar.setup {
 --   -- add filetypes for typescript, javascript and vue
