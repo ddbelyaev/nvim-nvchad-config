@@ -31,6 +31,16 @@ M.dap = {
   }
 }
 
+M.newconstruct = {
+  plugin = true,
+  n = {
+    ["<leader>gonc"] = {
+      "<cmd>NewConstruct<cr>", -- This executes the command your plugin created.
+      "Generate Go Constructor",
+    },
+  }
+}
+
 M.dap_go = {
   plugin = true,
   n = {
@@ -71,7 +81,11 @@ M.gopher = {
     ["<leader>ie"] = {
       "<cmd>GoIfErr<CR>",
       "Add error"
-    }
+    },
+    ["<leader>gonc"] = {
+      "<cmd>NewConstruct<cr>", -- This executes the command your plugin created.
+      "Generate Go Constructor",
+    },
   }
 }
 
