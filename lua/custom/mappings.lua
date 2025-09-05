@@ -89,4 +89,20 @@ M.gopher = {
   }
 }
 
+-- Make lowercase marks global by mapping them to uppercase marks.
+-- This effectively overwrites the default file-local mark behavior.
+for i = 97, 122 do -- ASCII values for 'a' through 'z'
+  local char = string.char(i)
+  local upper_char = string.upper(char)
+
+  -- Map `ma` to `mA`, `mb` to `mB`, etc.
+  vim.keymap.set("n", "m" .. char, "m" .. upper_char, { desc = "Set global mark " .. upper_char })
+
+  -- Map `'a` to `'A`, `'b` to `'B`, etc.
+  vim.keymap.set("n", "'" .. char, "'" .. upper_char, { desc = "Jump to global mark " .. upper_char })
+
+  -- Map `` `a` `` to `` `A` ``, `` `b` `` to `` `B` ``, etc.
+  vim.keymap.set("n", "`" .. char, "`" .. upper_char, { desc = "Jump to global mark " .. upper_char .. " (exact position)" })
+end
+
 return M
