@@ -131,6 +131,20 @@ local plugins = {
     event = "VeryLazy",
     config = function()
       require("nvim-surround").setup({
+        keymaps = {
+          normal = "s", -- Sets the mapping for adding a surround in Normal mode
+          -- The other defaults are shown below for context
+          -- visual = "S",
+          -- delete = "ds",
+          -- change = "cs",
+        },
+        mappings = {
+          -- normal = "ss", -- Sets the mapping for adding a surround in Normal mode
+          -- The other defaults are shown below for context
+          -- visual = "S",
+          -- delete = "ds",
+          -- change = "cs",
+        }
         -- Configuration here, or leave empty to use defaults
       })
     end
@@ -195,24 +209,24 @@ local plugins = {
   },
   {
     "ddromanidis/newconstruct",
-    -- This 'dir' key is crucial. It tells lazy.nvim the plugin is in a subdirectory.
+    -- this 'dir' key is crucial. it tells lazy.nvim the plugin is in a subdirectory.
     -- dir = "neovim/newconstruct.nvim",
     -- This loads the plugin only for Go files to improve startup time.
     ft = "go",
   },
-  -- {
-  --   "folke/flash.nvim",
-  --   event = "VeryLazy",
-  --   ---@type Flash.Config
-  --   opts = {},
-  --   -- stylua: ignore
-  --   keys = {
-  --     { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-  --     { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-  --     { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-  --     { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-  --     { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-  --   },
-  -- },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "<leader>s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "<leader>S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
 }
 return plugins
