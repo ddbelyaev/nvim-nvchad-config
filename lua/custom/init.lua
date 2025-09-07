@@ -27,3 +27,22 @@ map("n", "}", '}+')
 
 vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint'})
 
+-- ~/.config/nvim/lua/custom/init.lua
+
+-- Autocommand to enable spell checking for comments in various filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "c", "cpp", "go", "java", "javascript", "lua", "python",
+    "rust", "typescript", "sh", "yaml", "toml", "json"
+  },
+  callback = function()
+    -- Enable spell checking for the buffer
+    vim.opt_local.spell = true
+
+    -- Define Tree-sitter queries to control where spell checking occurs
+    -- We are extending the existing highlighting queries
+    vim.treesitter.query.set("highlights", "comment", "(comment) @spell")
+    vim.treesitter.query.set("highlights", "string", "(string) @nospell")
+  end,
+  desc = "Enable spell checking for comments",
+})
