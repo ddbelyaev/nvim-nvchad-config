@@ -46,6 +46,7 @@ local plugins = {
         "eslint-lsp",
         "eslint_d",
         "prettier",
+        'awk-language-server', -- LSP
       },
     },
   },

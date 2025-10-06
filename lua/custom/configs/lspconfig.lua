@@ -34,6 +34,52 @@ lspconfig.gopls.setup {
 
 -- lspconfig.als.setup {
 -- }
+lspconfig.awk_ls.setup{
+  settings = {
+    awk = {
+      lint = {
+        -- Enable or disable linting (checking for errors).
+        -- Type: boolean
+        -- Default: true
+        enabled = true,
+
+        -- The command used for linting. You can change this to use a
+        -- different awk implementation like 'nawk' or 'mawk'.
+        -- The '-c' flag is for compatibility/compile mode in gawk.
+        -- Type: string or array of strings
+        -- Default: { "gawk", "-c", "-f" }
+        command = { "gawk", "-c", "-f" },
+
+        -- Time in milliseconds to wait after a change before linting.
+        -- Type: number
+        -- Default: 500
+        debounce = 500,
+      },
+
+      format = {
+        -- Enable or disable formatting.
+        -- NOTE: The default awk language server formatting is very basic.
+        -- You might prefer an external tool like 'gawk --pretty-print'.
+        -- Type: boolean
+        -- Default: true
+        enabled = true,
+
+        -- The command used for formatting.
+        -- Type: string or array of strings
+        -- Default: { "gawk", "-f" }
+        command = { "gawk", "-f" },
+      },
+
+      trace = {
+        -- For debugging the language server itself.
+        -- Can be 'off', 'messages', or 'verbose'.
+        -- Type: string
+        -- Default: "off"
+        server = "off",
+      },
+    }
+  }
+}
 
 lspconfig.pyright.setup {
   on_attach = on_attach,
@@ -161,31 +207,31 @@ lspconfig.protols.setup {
 --   },
 -- }
 
--- lspconfig.emmet_language_server.setup({
---   filetypes = { "css", "html", "javascript", "less", "sass", "scss", "pug", "typescriptreact", "gohtml", "templ" },
---   -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
---   -- **Note:** only the options listed in the table are supported.
---   init_options = {
---     ---@type table<string, string>
---     includeLanguages = {},
---     --- @type string[]
---     excludeLanguages = {},
---     --- @type string[]
---     extensionsPath = {},
---     --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
---     preferences = {},
---     --- @type boolean Defaults to `true`
---     showAbbreviationSuggestions = true,
---     --- @type "always" | "never" Defaults to `"always"`
---     showExpandedAbbreviation = "always",
---     --- @type boolean Defaults to `false`
---     showSuggestionsAsSnippets = false,
---     --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
---     syntaxProfiles = {},
---     --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
---     variables = {},
---   },
--- })
+lspconfig.emmet_language_server.setup({
+  filetypes = { "css", "html", "javascript", "less", "sass", "scss", "pug", "typescriptreact", "gohtml", "templ" },
+  -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
+  -- **Note:** only the options listed in the table are supported.
+  init_options = {
+    ---@type table<string, string>
+    includeLanguages = {},
+    --- @type string[]
+    excludeLanguages = {},
+    --- @type string[]
+    extensionsPath = {},
+    --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
+    preferences = {},
+    --- @type boolean Defaults to `true`
+    showAbbreviationSuggestions = true,
+    --- @type "always" | "never" Defaults to `"always"`
+    showExpandedAbbreviation = "always",
+    --- @type boolean Defaults to `false`
+    showSuggestionsAsSnippets = false,
+    --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
+    syntaxProfiles = {},
+    --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
+    variables = {},
+  },
+})
 
 -- local configs = require("lspconfig.configs")
 -- 
